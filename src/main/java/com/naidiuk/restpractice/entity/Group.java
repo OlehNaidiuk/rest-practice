@@ -1,15 +1,13 @@
 package com.naidiuk.restpractice.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Builder
 @Table(name = "grp")
 public class Group {
@@ -17,7 +15,7 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupId;
     private String groupName;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 }
