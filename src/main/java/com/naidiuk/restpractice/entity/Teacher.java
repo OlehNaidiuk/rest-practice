@@ -19,6 +19,16 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teacherId;
     private String teacherName;
-    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.MERGE)
     private List<Group> groups = new ArrayList<>();
+
+    public void addGroup(Group group) {
+        group.setTeacher(this);
+        getGroups().add(group);
+    }
+
+    public void deleteGroup(Group group) {
+        getGroups().remove(group);
+        group.setTeacher(null);
+    }
 }
